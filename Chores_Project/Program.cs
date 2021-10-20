@@ -12,16 +12,17 @@ namespace Chores_Project
 
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
             builder.DataSource = "DESKTOP-5E220RG\\SQLSERVER2019";
+            //builder.DataSource = "localhost";
             builder.UserID = "sa";
             builder.Password = "Skoal40gddv";
-            builder.InitialCatalog = "Chores_Project";
+            builder.InitialCatalog = "master";
 
             using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
             {
                 connection.Open();
                 Console.WriteLine("Done.");
 
-                Console.Write("Dropping and creating database 'SampleDB' ... ");
+                Console.Write("Dropping and creating database 'ChoresDB' ... ");
                 String sql = "DROP DATABASE IF EXISTS [ChoresDB]; CREATE DATABASE [ChoresDB]";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
@@ -67,7 +68,7 @@ namespace Chores_Project
                 Console.Write("Updating 'ChoreAssignment' for user '" + userToUpdate + "', press any key to continue...");
                 Console.ReadKey(true);
                 sb.Clear();
-                sb.Append("UPDATE Chores SET ChoreAssignment = N'Guy' WHERE Name = @name");
+                sb.Append("UPDATE Chores SET ChoreAssignment = N'Guy' WHERE ChoreName = @name");
                 sql = sb.ToString();
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
